@@ -19,6 +19,23 @@ public class SpellingCheckSolver
 
     public IList<int> Solve()
     {
+        var prefix = GetLongestCommonPrefix(_first, _second);
+        var suffix = GetLongestCommonSuffix(_first, _second);
+        var total = Math.Clamp(
+            prefix.Length + 2 - (_first.Length - suffix.Length),
+            0,
+            int.MaxValue);
+
+        var result = new int[total];
+
+        for (int i = 0; i < total; i++)
+            result[i] = i + _first.Length - suffix.Length;
+
+        return result;
+    }
+
+    public IList<int> SolveOld()
+    {
         var positions = new List<int>();
         var variations = GenerateOneCharDeletions(_first);
 
@@ -43,5 +60,29 @@ public class SpellingCheckSolver
         }
 
         return result;
+    }
+
+    public static string GetLongestCommonPrefix(string first, string second)
+    {
+        return new string(Do().ToArray());
+
+        IEnumerable<char> Do()
+        {
+            int i = 0;
+            while (i < second.Length && first[i] == second[i])
+                yield return first[i++];
+        }
+    }
+
+    public static string GetLongestCommonSuffix(string first, string second)
+    {
+        return new string(Do().Reverse().ToArray());
+
+        IEnumerable<char> Do()
+        {
+            int i = 1;
+            while (i <= second.Length && first[^i] == second[^i])
+                yield return first[^i++];
+        }
     }
 }
