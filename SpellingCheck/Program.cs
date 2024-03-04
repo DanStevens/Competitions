@@ -62,27 +62,19 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public static string GetLongestCommonPrefix(string first, string second)
+    public static string GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
-        return new string(Do().ToArray());
-
-        IEnumerable<char> Do()
-        {
-            int i = 0;
-            while (i < second.Length && first[i] == second[i])
-                yield return first[i++];
-        }
+        int i = 0;
+        while (i < second.Length && first[i] == second[i])
+            i++;
+        return new string(first.Slice(0, i));
     }
 
-    public static string GetLongestCommonSuffix(string first, string second)
+    public static string GetLongestCommonSuffix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
-        return new string(Do().Reverse().ToArray());
-
-        IEnumerable<char> Do()
-        {
-            int i = 1;
-            while (i <= second.Length && first[^i] == second[^i])
-                yield return first[^i++];
-        }
+        int i = 1;
+        while (i <= second.Length && first[^i] == second[^i])
+            i++;
+        return new string(first.Slice(first.Length - (i - 1)));
     }
 }
