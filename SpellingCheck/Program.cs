@@ -19,17 +19,17 @@ public class SpellingCheckSolver
 
     public IList<int> Solve()
     {
-        var prefixLength = GetLongestCommonPrefixLength(_first, _second);
-        var suffixLength = GetLongestCommonSuffix(_first, _second);
+        var prefix = GetLongestCommonPrefix(_first, _second);
+        var suffix = GetLongestCommonSuffix(_first, _second);
         var total = Math.Clamp(
-            prefixLength + 2 - (_first.Length - suffixLength),
+            prefix.Length + 2 - (_first.Length - suffix.Length),
             0,
             int.MaxValue);
 
         var result = new int[total];
 
         for (int i = 0; i < total; i++)
-            result[i] = i + _first.Length - suffixLength;
+            result[i] = i + _first.Length - suffix.Length;
 
         return result;
     }
@@ -48,20 +48,19 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public static int GetLongestCommonPrefixLength(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
+    public static ReadOnlySpan<char> GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         int i = 0;
         while (i < second.Length && first[i] == second[i])
             i++;
-        return i;
+        return first.Slice(0, i);
     }
 
-    public static int GetLongestCommonSuffix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
+    public static ReadOnlySpan<char> GetLongestCommonSuffix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         int i = 1;
         while (i <= second.Length && first[^i] == second[^i])
             i++;
-        return i - 1;
+        return first.Slice(first.Length - (i - 1));
     }
 }
-//
