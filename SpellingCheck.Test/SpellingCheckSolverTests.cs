@@ -42,7 +42,7 @@ namespace SpellingCheck.Test
         [InlineData("foo", "bar", "")]
         public void GetLongestCommonPrefix(string first, string second, string expectedResult)
         {
-            var result = SpellingCheckSolver.GetLongestCommonPrefix(first, second);
+            var result = SpellingCheckSolver.GetLongestCommonPrefix(first, second).ToString();
             Assert.Equal(expectedResult, result);
         }
 
@@ -61,7 +61,7 @@ namespace SpellingCheck.Test
         [InlineData("foo", "bar", "")]
         public static void GetLongestCommonSuffix(string first, string second, string expectedResult)
         {
-            var result = SpellingCheckSolver.GetLongestCommonSuffix(first, second);
+            var result = SpellingCheckSolver.GetLongestCommonSuffix(first, second).ToString();
             Assert.Equal(expectedResult, result);
         }
     }

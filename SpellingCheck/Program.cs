@@ -34,20 +34,6 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public IList<int> SolveOld()
-    {
-        var positions = new List<int>();
-        var variations = GenerateOneCharDeletions(_first);
-
-        for (int i = 0; i < variations.Length; i++)
-        {
-            if (variations[i] == _second)
-                positions.Add(i + 1);
-        }
-
-        return positions;
-    }
-
     public static string[] GenerateOneCharDeletions(string word)
     {
         var result = new string[word.Length];
@@ -62,19 +48,19 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public static string GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
+    public static ReadOnlySpan<char> GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         int i = 0;
         while (i < second.Length && first[i] == second[i])
             i++;
-        return new string(first.Slice(0, i));
+        return first.Slice(0, i);
     }
 
-    public static string GetLongestCommonSuffix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
+    public static ReadOnlySpan<char> GetLongestCommonSuffix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         int i = 1;
         while (i <= second.Length && first[^i] == second[^i])
             i++;
-        return new string(first.Slice(first.Length - (i - 1)));
+        return first.Slice(first.Length - (i - 1));
     }
 }
