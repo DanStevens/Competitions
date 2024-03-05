@@ -40,10 +40,10 @@ namespace SpellingCheck.Test
         [InlineData("abdrakadabra", "abrakadabra", "ab")]
         [InlineData("competition", "codeforces", "co")]
         [InlineData("foo", "bar", "")]
-        public void GetLongestCommonPrefix(string first, string second, string expectedResult)
+        public void GetLongestCommonPrefixLength(string first, string second, string expectedResult)
         {
-            var result = SpellingCheckSolver.GetLongestCommonPrefix(first, second).ToString();
-            Assert.Equal(expectedResult, result);
+            var result = SpellingCheckSolver.GetLongestCommonPrefixLength(first, second);
+            Assert.Equal(expectedResult.Length, result);
         }
 
         [Theory]
@@ -59,10 +59,10 @@ namespace SpellingCheck.Test
         [InlineData("abdrakadabra", "abrakadabra", "rakadabra")]
         [InlineData("competition", "codeforces", "")]
         [InlineData("foo", "bar", "")]
-        public static void GetLongestCommonSuffix(string first, string second, string expectedResult)
+        public static void GetLongestCommonSuffixLength(string first, string second, string expectedResult)
         {
-            var result = SpellingCheckSolver.GetLongestCommonSuffix(first, second).ToString();
-            Assert.Equal(expectedResult, result);
+            var result = SpellingCheckSolver.GetLongestCommonSuffix(first, second);
+            Assert.Equal(expectedResult.Length, result);
         }
     }
 }
