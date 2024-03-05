@@ -37,6 +37,7 @@ public class SpellingCheckSolver
     public static string[] GenerateOneCharDeletions(ReadOnlySpan<char> word)
     {
         var result = new string[word.Length];
+        var buffer = (Span<char>)stackalloc char[word.Length - 1];
 
         for (var splitAt = 0; splitAt < word.Length; splitAt++)
         {
@@ -46,11 +47,10 @@ public class SpellingCheckSolver
             var rPart = word.Slice(splitAt + 1);
 
             // Combine the parts as efficiently as possible into a new string
-            var combined = new Span<char>(new char[lPart.Length + rPart.Length]);
-            lPart.CopyTo(combined);
-            rPart.CopyTo(combined.Slice(splitAt));
+            lPart.CopyTo(buffer);
+            rPart.CopyTo(buffer.Slice(splitAt));
 
-            result[splitAt] = new string(combined);
+            result[splitAt] = new string(buffer);
         }
 
         return result; 
