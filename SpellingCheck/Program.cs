@@ -34,18 +34,26 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public static string[] GenerateOneCharDeletions(string word)
+    public static string[] GenerateOneCharDeletions(ReadOnlySpan<char> word)
     {
         var result = new string[word.Length];
 
         for (var splitAt = 0; splitAt < word.Length; splitAt++)
         {
-            var lPart = word.Substring(0, splitAt);
-            var rPart = word.Substring(splitAt + 1);
-            result[splitAt] = lPart + rPart;
+            // Split the word into two at the split point, excluding the first character
+            // of the right part - this results in deleting 1 character
+            var lPart = word.Slice(0, splitAt);
+            var rPart = word.Slice(splitAt + 1);
+
+            // Combine the parts as efficiently as possible into a new string
+            var combined = new Span<char>(new char[lPart.Length + rPart.Length]);
+            lPart.CopyTo(combined);
+            rPart.CopyTo(combined.Slice(splitAt));
+
+            result[splitAt] = new string(combined);
         }
 
-        return result;
+        return result; 
     }
 
     public static ReadOnlySpan<char> GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
