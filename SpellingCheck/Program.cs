@@ -34,20 +34,6 @@ public class SpellingCheckSolver
         return result;
     }
 
-    public static string[] GenerateOneCharDeletions(string word)
-    {
-        var result = new string[word.Length];
-
-        for (var splitAt = 0; splitAt < word.Length; splitAt++)
-        {
-            var lPart = word.Substring(0, splitAt);
-            var rPart = word.Substring(splitAt + 1);
-            result[splitAt] = lPart + rPart;
-        }
-
-        return result;
-    }
-
     public static ReadOnlySpan<char> GetLongestCommonPrefix(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         int i = 0;
