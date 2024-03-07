@@ -11,13 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snowflakes.xUnitTest", "Sno
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConveyorBeltSushi", "ConveyorBeltSushi\ConveyorBeltSushi.csproj", "{938AEA40-B3B4-4209-A0F8-21E0E26FED28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundWords.Test", "CompoundWords.Test\CompoundWords.Test.csproj", "{0BAB80A0-FC17-4C8D-9A9A-F27F73F14086}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompoundWords.Test", "CompoundWords.Test\CompoundWords.Test.csproj", "{0BAB80A0-FC17-4C8D-9A9A-F27F73F14086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundWords", "CompoundWords\CompoundWords.csproj", "{07AF18B1-9495-4468-B7A3-7FA900284E8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompoundWords", "CompoundWords\CompoundWords.csproj", "{07AF18B1-9495-4468-B7A3-7FA900284E8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellingCheck.Test", "SpellingCheck.Test\SpellingCheck.Test.csproj", "{733713A6-8714-4372-8922-0E7B85CB2937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpellingCheck.Test", "SpellingCheck.Test\SpellingCheck.Test.csproj", "{733713A6-8714-4372-8922-0E7B85CB2937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellingCheck", "SpellingCheck\SpellingCheck.csproj", "{24AFEA03-1368-451C-B5AA-E9D00957CED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpellingCheck", "SpellingCheck\SpellingCheck.csproj", "{24AFEA03-1368-451C-B5AA-E9D00957CED1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrickOrTreet", "TrickOrTreet\TrickOrTreet.csproj", "{F3F9675A-C1FB-490F-8A35-E98668BF84EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrickOrTreeTests", "TrickOrTreeTests\TrickOrTreeTests.csproj", "{590CB0A8-D9E1-4F71-AEBF-E9A0E0151BA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{24AFEA03-1368-451C-B5AA-E9D00957CED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24AFEA03-1368-451C-B5AA-E9D00957CED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24AFEA03-1368-451C-B5AA-E9D00957CED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F9675A-C1FB-490F-8A35-E98668BF84EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F9675A-C1FB-490F-8A35-E98668BF84EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F9675A-C1FB-490F-8A35-E98668BF84EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F9675A-C1FB-490F-8A35-E98668BF84EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590CB0A8-D9E1-4F71-AEBF-E9A0E0151BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590CB0A8-D9E1-4F71-AEBF-E9A0E0151BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590CB0A8-D9E1-4F71-AEBF-E9A0E0151BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590CB0A8-D9E1-4F71-AEBF-E9A0E0151BA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
