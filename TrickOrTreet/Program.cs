@@ -23,7 +23,7 @@ namespace TrickOrTreet
     {
         private class TreeParser
         {
-            private static readonly Regex TokenizerRegex = new Regex(@"\d+|\(|\)");
+            private static readonly Regex TokenizerRegex = new Regex(@"\d+|\(|\)", RegexOptions.Compiled);
             private int _pos = 0;
             private string[] _tokens;
 
