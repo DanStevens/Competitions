@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TrickOrTreet
 {
@@ -8,32 +8,119 @@ namespace TrickOrTreet
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string line;
+
+            while ((line = Console.ReadLine()) != null)
+            {
+                var tree = TrickOrTreetSolver.Parse(line);
+                var result = TrickOrTreetSolver.Solve(tree);
+                Console.WriteLine(result);
+            }
         }
     }
 
-    public class TrickOrTreetSolver
+    public static class TrickOrTreetSolver
     {
-        public static int CountCandy(BinaryTreeNode<int?> tree)
+        private class TreeParser
         {
-            int total = 0;
-            var stack = new Stack<BinaryTreeNode<int?>>();
+            private static readonly Regex TokenizerRegex = new Regex(@"\d+|\(|\)");
+            private int _pos = 0;
+            private string[] _tokens;
 
-            while (tree != null)
+            public BinaryTreeNode<int?> Parse(string representation)
             {
-                if (tree.Left != null && tree.Right != null)
+                if (string.IsNullOrWhiteSpace(representation))
+                    return null;
+
+                _tokens = Tokenize(representation);
+                _pos = 0;
+
+                return Helper();
+            }
+
+            BinaryTreeNode<int?> Helper()
+            {
+                var node = new BinaryTreeNode<int?>();
+
+                if (_tokens[_pos] == "(")
                 {
-                    stack.Push(tree.Left);
-                    tree = tree.Right;
+                    _pos += 1;
+                    node.Left = Helper();
+                    _pos += 1;
+                    node.Right = Helper();
+                    _pos += 1;
                 }
                 else
                 {
-                    total += tree.Value ?? 0;
-                    tree = stack.Count == 0 ? null : stack.Pop();
+                    node.Value = int.Parse(_tokens[_pos]);
                 }
+
+                return node;
             }
 
-            return total;
+            internal static string[] Tokenize(string representation)
+            {
+                return TokenizerRegex.Matches(representation).Select(m => m.Value).ToArray();
+            }
+        }
+
+        public static string[] Tokenize(string representation) => TreeParser.Tokenize(representation);
+
+        public static BinaryTreeNode<int?> Parse(string representation)
+        {
+            return new TreeParser().Parse(representation);
+        }
+
+        public static Result Solve(BinaryTreeNode<int?> tree)
+        {
+            var numCandy = CountCandy(tree);
+            var height = Height(tree);
+            var minStreetsWalked = CountStreetsWalked(tree) - height;
+
+            return new Result
+            {
+                NumCandy = numCandy,
+                MinStreetsWalked = minStreetsWalked,
+            };
+        }
+
+        public static int CountCandy(BinaryTreeNode<int?> tree)
+        {
+            if (tree.Left == null && tree.Right == null)
+                return tree.Value ?? 0;
+            return CountCandy(tree.Left) + CountCandy(tree.Right);
+        }
+
+        public static int CountNodes(BinaryTreeNode<int?> tree)
+        {
+            if (tree.Left == null && tree.Right == null)
+                return 1;
+            return 1 + CountNodes(tree.Left) + CountNodes(tree.Right);
+        }
+
+        public static int CountStreetsWalked(BinaryTreeNode<int?> tree)
+        {
+            if (tree.Left == null && tree.Right == null)
+                return 0;
+            return CountStreetsWalked(tree.Left) + CountStreetsWalked(tree.Right) + 4;
+        }
+
+        public static int Height(BinaryTreeNode<int?> tree)
+        {
+            if (tree.Left == null && tree.Right == null)
+                return 0;
+            return 1 + Math.Max(Height(tree.Left), Height(tree.Right));
+        }
+
+        public class Result
+        {
+            public int NumCandy { get; set; }
+            public int MinStreetsWalked { get; set; }
+
+            public override string ToString()
+            {
+                return $"{MinStreetsWalked} {NumCandy}";
+            }
         }
     }
 
