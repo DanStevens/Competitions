@@ -14,7 +14,7 @@ namespace TrickOrTreet
             while ((line = Console.ReadLine()) != null)
             {
                 var tree = TrickOrTreetSolver.Parse(line);
-                var result = TrickOrTreetSolver.SolveAsync(tree).Result;
+                var result = TrickOrTreetSolver.Solve(tree);
                 Console.WriteLine(result);
             }
         }
@@ -62,29 +62,17 @@ namespace TrickOrTreet
 
         public static Result Solve(BinaryTreeNode<int?> tree)
         {
-            var numCandy = CountCandy(tree);
-            var height = Height(tree);
-            var minStreetsWalked = CountStreetsWalked(tree) - height;
+            var result = new Result();
 
-            return new Result
+            var actions = new Action[]
             {
-                NumCandy = numCandy,
-                MinStreetsWalked = minStreetsWalked,
+                () => result.NumCandy = CountCandy(tree),
+                () => result.Height = Height(tree),
+                () => result.StreetsWalked = CountStreetsWalked(tree),
             };
-        }
+            Parallel.Invoke(actions);
 
-        public static async Task<Result> SolveAsync(BinaryTreeNode<int?> tree)
-        {
-            var countCandyTask = Task.Run(() => CountCandy(tree));
-            var heightTask = Task.Run(() =>  Height(tree));
-            var countStreetsWalkedTask = Task.Run(() => CountStreetsWalked(tree));
-            await Task.WhenAll(countCandyTask, heightTask, countStreetsWalkedTask);
-
-            return new Result
-            {
-                NumCandy = countCandyTask.Result,
-                MinStreetsWalked = countStreetsWalkedTask.Result - heightTask.Result,
-            };
+            return result;
         }
 
         public static int CountCandy(BinaryTreeNode<int?> tree)
@@ -118,7 +106,9 @@ namespace TrickOrTreet
         public class Result
         {
             public int NumCandy { get; set; }
-            public int MinStreetsWalked { get; set; }
+            public int Height { get; set; }
+            public int StreetsWalked { get; set; }
+            public int MinStreetsWalked => StreetsWalked - Height;
 
             public override string ToString()
             {

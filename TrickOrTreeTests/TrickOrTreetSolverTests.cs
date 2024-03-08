@@ -172,20 +172,5 @@ namespace TrickOrTreeTests
             var result = TrickOrTreetSolver.Solve(tree);
             Assert.Equal(expectedOutput, result.ToString());
         }
-
-        [Theory]
-        [InlineData("((1 5) 8)", "6 14")]
-        [InlineData("(1 3)", "3 4")]
-        [InlineData("13", "0 13")]
-        [InlineData("((1 2) (3 4))", "10 10")]
-        [InlineData("(((((1 1) 1) 1) 1) 1)", "15 6")]
-        [InlineData("(((1 2) (3 4)) ((6 7) (8 9))", "25 40")]
-        [InlineData("((1 2) (((10 10) (3 4)) ((((1 1) 1) 1) 1)))", "34 35")]
-        public async void SolveAsync(string input, string expectedOutput)
-        {
-            var tree = TrickOrTreetSolver.Parse(input);
-            var result = await TrickOrTreetSolver.SolveAsync(tree);
-            Assert.Equal(expectedOutput, result.ToString());
-        }
     }
 }
