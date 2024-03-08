@@ -24,17 +24,14 @@ namespace TrickOrTreet
         private class TreeParser
         {
             private static readonly Regex TokenizerRegex = new Regex(@"\d+|\(|\)", RegexOptions.Compiled);
-            private int _pos = 0;
-            private string[] _tokens;
+            private Match _matcher;
 
             public BinaryTreeNode<int?> Parse(string representation)
             {
                 if (string.IsNullOrWhiteSpace(representation))
                     return null;
 
-                _tokens = Tokenize(representation);
-                _pos = 0;
-
+                _matcher = TokenizerRegex.Match(representation);
                 return Helper();
             }
 
@@ -42,29 +39,20 @@ namespace TrickOrTreet
             {
                 var node = new BinaryTreeNode<int?>();
 
-                if (_tokens[_pos] == "(")
+                if (_matcher.Value == "(")
                 {
-                    _pos += 1;
+                    _matcher = _matcher.NextMatch();
                     node.Left = Helper();
-                    _pos += 1;
+                    _matcher = _matcher.NextMatch();
                     node.Right = Helper();
-                    _pos += 1;
+                    _matcher = _matcher.NextMatch();
                 }
                 else
-                {
-                    node.Value = int.Parse(_tokens[_pos]);
-                }
+                    node.Value = int.Parse(_matcher.Value);
 
                 return node;
             }
-
-            internal static string[] Tokenize(string representation)
-            {
-                return TokenizerRegex.Matches(representation).Select(m => m.Value).ToArray();
-            }
         }
-
-        public static string[] Tokenize(string representation) => TreeParser.Tokenize(representation);
 
         public static BinaryTreeNode<int?> Parse(string representation)
         {

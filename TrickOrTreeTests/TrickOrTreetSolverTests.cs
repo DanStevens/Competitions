@@ -159,18 +159,6 @@ namespace TrickOrTreeTests
         }
 
         [Theory]
-        [InlineData("4", new[] { "4" })]
-        [InlineData("15", new[] { "15" })]
-        [InlineData("(4 9)", new[] { "(", "4", "9", ")"})]
-        [InlineData("((4 9), 15)", new[] { "(", "(", "4", "9", ")", "15", ")"})]
-        [InlineData("(15, (9 4))", new[] { "(", "15", "(", "9", "4", ")", ")" })]
-        public void TokenizeRepresentation(string representation, string[] expectedTokens)
-        {
-            var result = TrickOrTreetSolver.Tokenize(representation);
-            Assert.Equal(expectedTokens, result);
-        }
-
-        [Theory]
         [InlineData("((1 5) 8)", "6 14")]
         [InlineData("(1 3)", "3 4")]
         [InlineData("13", "0 13")]
