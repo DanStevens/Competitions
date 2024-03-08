@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace TrickOrTreet
 {
@@ -13,7 +14,7 @@ namespace TrickOrTreet
             while ((line = Console.ReadLine()) != null)
             {
                 var tree = TrickOrTreetSolver.Parse(line);
-                var result = TrickOrTreetSolver.Solve(tree);
+                var result = TrickOrTreetSolver.SolveAsync(tree).Result;
                 Console.WriteLine(result);
             }
         }
@@ -69,6 +70,20 @@ namespace TrickOrTreet
             {
                 NumCandy = numCandy,
                 MinStreetsWalked = minStreetsWalked,
+            };
+        }
+
+        public static async Task<Result> SolveAsync(BinaryTreeNode<int?> tree)
+        {
+            var countCandyTask = Task.Run(() => CountCandy(tree));
+            var heightTask = Task.Run(() =>  Height(tree));
+            var countStreetsWalkedTask = Task.Run(() => CountStreetsWalked(tree));
+            await Task.WhenAll(countCandyTask, heightTask, countStreetsWalkedTask);
+
+            return new Result
+            {
+                NumCandy = countCandyTask.Result,
+                MinStreetsWalked = countStreetsWalkedTask.Result - heightTask.Result,
             };
         }
 
