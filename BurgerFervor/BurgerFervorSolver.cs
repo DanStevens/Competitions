@@ -1,8 +1,9 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-public class BurgerFervorSolver
+public class Program
 {
     public static void Main(string[] args)
     {
@@ -10,39 +11,65 @@ public class BurgerFervorSolver
         while ((line = Console.ReadLine()) != null)
         {
             int[] mnt = line.Split(' ').Select(int.Parse).ToArray();
-            var result = Solve(mnt[0], mnt[1], mnt[2]);
+            var solver = new BurgerFervorSolver(mnt[0], mnt[1]);
+            var result = solver.Solve(mnt[2]);
             Console.WriteLine(result);
         }
     }
+}
 
-    public static Result Solve(int m, int n, int t)
+public class BurgerFervorSolver
+{
+    private readonly int _m;
+    private readonly int _n;
+    private readonly Dictionary<int, int> _memo;
+
+    public BurgerFervorSolver(int m, int n)
     {
-        int result = SolveForT(m, n, t);
+        _m = m;
+        _n = n;
+        _memo = new Dictionary<int, int>();
+    }
+
+    public Result Solve(int t)
+    {
+        int result = SolveForT(t);
         if (result >= 0)
             return new Result(result);
 
         int i = t - 1;
-        result = SolveForT(m, n, i);
+        result = SolveForT(i);
         while (result == -1)
         {
             i -= 1;
-            result = SolveForT(m, n, i);
+            result = SolveForT(i);
         }
         return new Result(result, t - i);
     }
 
-    public static int SolveForT(int m, int n, int t)
+    public int SolveForT(int t)
     {
-        if (t == 0)
-            return 0;
+        if (_memo.TryGetValue(t, out int x))
+            return x;
 
-        int mSolution = t >= m ? SolveForT(m, n, t - m) : -1;
-        int nSolution = t >= n ? SolveForT(m, n, t - n) : -1;
+        if (t == 0)
+        {
+            _memo[t] = 0;
+            return 0;
+        }
+
+        int mSolution = t >= _m ? SolveForT(t - _m) : -1;
+        int nSolution = t >= _n ? SolveForT(t - _n) : -1;
 
         if (mSolution == -1 && nSolution == -1)
+        {
+            _memo[t] = -1;
             return -1;
+        }
 
-        return Math.Max(mSolution, nSolution) + 1;
+        var y = Math.Max(mSolution, nSolution) + 1;
+        _memo[t] = y;
+        return y;
     }
 }
 
