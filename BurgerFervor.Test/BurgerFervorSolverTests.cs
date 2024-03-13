@@ -18,17 +18,4 @@ public class BurgerFervorSolverTests
         var result = solver.Solve(t);
         Assert.Equal(expectedResult, result);
     }
-
-    [Theory]
-    [InlineData(4, 9, 0, 0)]
-    [InlineData(4, 9, 15, -1)]
-    [InlineData(4, 9, 20, 5)]
-    [InlineData(4, 9, 22, 3)]
-    [InlineData(4, 9, 36, 9)]
-    public void SolveForT(int m, int n, int t, int expectedResult)
-    {
-        var solver = new BurgerFervorSolver(m, n);
-        var result = solver.SolveForT(t);
-        Assert.Equal(expectedResult, result);
-    }
 }

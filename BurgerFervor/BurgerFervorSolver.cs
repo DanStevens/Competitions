@@ -33,43 +33,26 @@ public class BurgerFervorSolver
 
     public Result Solve(int t)
     {
-        int result = SolveForT(t);
-        if (result >= 0)
-            return new Result(result);
+        _memo[0] = 0;
 
-        int i = t - 1;
-        result = SolveForT(i);
-        while (result == -1)
+        for (int i = 1; i <= t; i++)
         {
-            i -= 1;
-            result = SolveForT(i);
-        }
-        return new Result(result, t - i);
-    }
-
-    public int SolveForT(int t)
-    {
-        if (_memo.TryGetValue(t, out int x))
-            return x;
-
-        if (t == 0)
-        {
-            _memo[t] = 0;
-            return 0;
+            int mSolution = i >= _m && _memo.TryGetValue(i - _m, out int rm) ? rm : -1;
+            int nSolution = i >= _n && _memo.TryGetValue(i - _n, out int rn) ? rn : -1;
+            if (mSolution >= 0 || nSolution >= 0)
+                _memo[i] = Math.Max(mSolution, nSolution) + 1;
         }
 
-        int mSolution = t >= _m ? SolveForT(t - _m) : -1;
-        int nSolution = t >= _n ? SolveForT(t - _n) : -1;
+        if (_memo.TryGetValue(t, out int r1))
+            return new Result(r1);
 
-        if (mSolution == -1 && nSolution == -1)
+        for (int i = t - 1; i > 0; i--)
         {
-            _memo[t] = -1;
-            return -1;
+            if (_memo.TryGetValue(i, out int r2))
+                return new Result(r2, t - i);
         }
 
-        var y = Math.Max(mSolution, nSolution) + 1;
-        _memo[t] = y;
-        return y;
+        return new Result(0);
     }
 }
 
