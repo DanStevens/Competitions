@@ -27,9 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyCountdown", "FamilyCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyCountdownTests", "FamilyCountdownTests\FamilyCountdownTests.csproj", "{43D13CE5-67FE-4017-B06C-B8C145A34430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerFervor", "BurgerFervor\BurgerFervor.csproj", "{F45113D5-495E-40D0-AF11-E2CCF3427B8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerFervor", "BurgerFervor\BurgerFervor.csproj", "{F45113D5-495E-40D0-AF11-E2CCF3427B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerFervor.Test", "BurgerFervor.Test\BurgerFervor.Test.csproj", "{691851BB-C823-4D9D-B41A-578855248E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerFervor.Test", "BurgerFervor.Test\BurgerFervor.Test.csproj", "{691851BB-C823-4D9D-B41A-578855248E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeseVsHawks", "GeeseVsHawks\GeeseVsHawks.csproj", "{C81B0062-45CF-45DE-9873-2270EF4B663F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeseVsHawks.Test", "GeeseVsHawks.Test\GeeseVsHawks.Test.csproj", "{29CAEA27-8035-4371-89C1-775A30AB1AF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{691851BB-C823-4D9D-B41A-578855248E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{691851BB-C823-4D9D-B41A-578855248E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{691851BB-C823-4D9D-B41A-578855248E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81B0062-45CF-45DE-9873-2270EF4B663F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81B0062-45CF-45DE-9873-2270EF4B663F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81B0062-45CF-45DE-9873-2270EF4B663F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81B0062-45CF-45DE-9873-2270EF4B663F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
