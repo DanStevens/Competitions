@@ -18,6 +18,8 @@ namespace GeeseVsHawks
 
     public class GeeseVsHawksSolver
     {
+        private const int Size = 1000;
+
         public static GameResult[] ParseResults(string winLoses, string goals)
         {
             var results  = new GameResult[winLoses.Length];
@@ -50,6 +52,7 @@ namespace GeeseVsHawks
 
         private readonly GameResult[] _geeseResults;
         private readonly GameResult[] _hawksResults;
+        private readonly int[,] _memo;
 
         public GeeseVsHawksSolver(string geeseWinLose, string geeseGoals, string hawksWinLose, string hawksGoals)
             : this(ParseResults(geeseWinLose, geeseGoals), ParseResults(hawksWinLose, hawksGoals))
@@ -62,6 +65,14 @@ namespace GeeseVsHawks
 
             _geeseResults = geeseResults.Prepend(GameResult.Undefined).ToArray();
             _hawksResults = hawksResults.Prepend(GameResult.Undefined).ToArray();
+
+            _memo = new int[_geeseResults.Length, _hawksResults.Length];
+            _memo[0, 0] = 0;
+
+            for (int i = 1; i < _geeseResults.Length; i++)
+                for (int j = 1; j < _hawksResults.Length; j++)
+                    _memo[i , j] = -1;
+
         }
 
         public int Solve()
@@ -71,8 +82,8 @@ namespace GeeseVsHawks
 
         private int SolveSub(int i, int j)
         {
-            if (i == 0 || j == 0)
-                return 0;
+            if (_memo[i, j] >= 0)
+                return _memo[i, j];
 
             var geeseOutcome = _geeseResults[i].Outcome;
             var hawksOutcome = _hawksResults[j].Outcome;
@@ -90,7 +101,7 @@ namespace GeeseVsHawks
                 SolveSub(i, j - 1)
             };
 
-            return options.Max();
+            return _memo[i, j] = options.Max();
         }
     }
 
