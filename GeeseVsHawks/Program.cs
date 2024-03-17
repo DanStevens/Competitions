@@ -53,7 +53,6 @@ namespace GeeseVsHawks
         private readonly int _numTests;
         private readonly GameResult[] _geeseResults;
         private readonly GameResult[] _hawksResults;
-        private readonly int[,] _memo;
 
         public GeeseVsHawksSolver(string geeseWinLose, string geeseGoals, string hawksWinLose, string hawksGoals)
             : this(ParseResults(geeseWinLose, geeseGoals), ParseResults(hawksWinLose, hawksGoals))
@@ -67,34 +66,44 @@ namespace GeeseVsHawks
             _numTests = geeseResults.Length;
             _geeseResults = geeseResults.Prepend(GameResult.Undefined).ToArray();
             _hawksResults = hawksResults.Prepend(GameResult.Undefined).ToArray();
-
-            _memo = new int[_geeseResults.Length, _hawksResults.Length];
         }
 
         public int Solve()
         {
+            var previous = new int[_numTests + 1];
+            var current = new int[_numTests + 1];
+
             for (int i = 1; i <= _numTests; i++)
-            for (int j = 1; j <= _numTests; j++)
             {
-                var geeseOutcome = _geeseResults[i].Outcome;
-                var hawksOutcome = _hawksResults[j].Outcome;
-                var geeseGoals = _geeseResults[i].Goals;
-                var hawksGoals = _hawksResults[j].Goals;
-
-                var condition1 = geeseOutcome == Outcome.Win && hawksOutcome == Outcome.Lose && geeseGoals > hawksGoals;
-                var condition2 = geeseOutcome == Outcome.Lose && hawksOutcome == Outcome.Win && geeseGoals < hawksGoals;
-
-                var options = new[]
+                for (int j = 1; j <= _numTests; j++)
                 {
-                    condition1 || condition2 ? _memo[i - 1, j - 1] + _geeseResults[i].Goals + _hawksResults[j].Goals : 0,
-                    _memo[i - 1, j - 1],
-                    _memo[i - 1, j],
-                    _memo[i, j - 1],
-                };
-                _memo[i, j] = options.Max();
+                    var geeseOutcome = _geeseResults[i].Outcome;
+                    var hawksOutcome = _hawksResults[j].Outcome;
+                    var geeseGoals = _geeseResults[i].Goals;
+                    var hawksGoals = _hawksResults[j].Goals;
+
+                    var condition1 = geeseOutcome == Outcome.Win && hawksOutcome == Outcome.Lose &&
+                                     geeseGoals > hawksGoals;
+                    var condition2 = geeseOutcome == Outcome.Lose && hawksOutcome == Outcome.Win &&
+                                     geeseGoals < hawksGoals;
+
+                    var options = new[]
+                    {
+                        condition1 || condition2
+                            ? previous[j - 1] + _geeseResults[i].Goals + _hawksResults[j].Goals
+                            : 0,
+                        previous[j - 1],
+                        previous[j],
+                        current[j - 1],
+                    };
+
+                    current[j] = options.Max();
+                }
+
+                current.CopyTo(previous, 0);
             }
 
-            return _memo[_numTests, _numTests];
+            return current[_numTests];
         }
     }
 
