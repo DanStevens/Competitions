@@ -8,8 +8,8 @@ namespace GeeseVsHawks
         static void Main(string[] args)
         {
             _ = Console.ReadLine();
-            var geeseResults = GeeseVsHawksSolver.ParseResults(Console.ReadLine(), Console.ReadLine());
-            var hawksResults = GeeseVsHawksSolver.ParseResults(Console.ReadLine(), Console.ReadLine());
+            var geeseResults = GeeseVsHawksSolver.ParseGames(Console.ReadLine(), Console.ReadLine());
+            var hawksResults = GeeseVsHawksSolver.ParseGames(Console.ReadLine(), Console.ReadLine());
             var solver = new GeeseVsHawksSolver(geeseResults, hawksResults);
             var result = solver.Solve();
             Console.WriteLine(result);
@@ -20,21 +20,21 @@ namespace GeeseVsHawks
     {
         private const int Size = 1000;
 
-        public static GameResult[] ParseResults(string winLoses, string goals)
+        public static GameResult[] ParseGames(string outcomes, string goals)
         {
-            var results  = new GameResult[winLoses.Length];
+            var results  = new GameResult[outcomes.Length];
             var goalsParsed = goals.Length > 0
                 ? goals.Split(' ').Select(int.Parse).ToArray() : Array.Empty<int>();
 
-            for (int i = 0; i < winLoses.Length; i++)
+            for (int i = 0; i < outcomes.Length; i++)
             {
-                results[i] = new GameResult(ParseResult(winLoses[i]), goalsParsed[i]); 
+                results[i] = new GameResult(ParseOutcome(outcomes[i]), goalsParsed[i]); 
             }
             
             return results;
         }
 
-        private static Outcome ParseResult(char c)
+        private static Outcome ParseOutcome(char c)
         {
             switch (c)
             {
@@ -55,7 +55,7 @@ namespace GeeseVsHawks
         private readonly GameResult[] _hawksResults;
 
         public GeeseVsHawksSolver(string geeseWinLose, string geeseGoals, string hawksWinLose, string hawksGoals)
-            : this(ParseResults(geeseWinLose, geeseGoals), ParseResults(hawksWinLose, hawksGoals))
+            : this(ParseGames(geeseWinLose, geeseGoals), ParseGames(hawksWinLose, hawksGoals))
         {}
 
         public GeeseVsHawksSolver(GameResult[] geeseResults, GameResult[] hawksResults)

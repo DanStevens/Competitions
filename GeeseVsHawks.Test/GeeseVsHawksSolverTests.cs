@@ -11,7 +11,7 @@ namespace GeeseVsHawks.Test
         [Fact]
         public void ParseResults_GivenZeroGames_ReturnsEmptyArray()
         {
-            Assert.Empty(GeeseVsHawksSolver.ParseResults("", ""));
+            Assert.Empty(GeeseVsHawksSolver.ParseGames("", ""));
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace GeeseVsHawks.Test
         {
             Assert.Equal(
                 new[] { new GameResult(Outcome.Lose, 0) },
-                GeeseVsHawksSolver.ParseResults("L", "0"));
+                GeeseVsHawksSolver.ParseGames("L", "0"));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace GeeseVsHawks.Test
         {
             Assert.Equal(
                 new[] { new GameResult(Outcome.Win, 1) },
-                GeeseVsHawksSolver.ParseResults("W", "1"));
+                GeeseVsHawksSolver.ParseGames("W", "1"));
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace GeeseVsHawks.Test
         {
             Assert.Equal(
                 new[] { new GameResult(Outcome.Lose, 0), new GameResult(Outcome.Lose, 1) },
-                GeeseVsHawksSolver.ParseResults("LL", "0 1"));
+                GeeseVsHawksSolver.ParseGames("LL", "0 1"));
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace GeeseVsHawks.Test
         {
             Assert.Equal(
                 new[] { new GameResult(Outcome.Win, 5), new GameResult(Outcome.Lose, 1) },
-                GeeseVsHawksSolver.ParseResults("WL", "5 1"));
+                GeeseVsHawksSolver.ParseGames("WL", "5 1"));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace GeeseVsHawks.Test
                     new GameResult(Outcome.Lose, 3),
                     new GameResult(Outcome.Win, 4),
                 },
-                GeeseVsHawksSolver.ParseResults("WLLW", "1 2 3 4"));
+                GeeseVsHawksSolver.ParseGames("WLLW", "1 2 3 4"));
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace GeeseVsHawks.Test
                     new GameResult(Outcome.Win, 3),
                     new GameResult(Outcome.Lose, 2),
                 },
-                GeeseVsHawksSolver.ParseResults("LWWL", "6 5 3 2"));
+                GeeseVsHawksSolver.ParseGames("LWWL", "6 5 3 2"));
         }
 
         #endregion
