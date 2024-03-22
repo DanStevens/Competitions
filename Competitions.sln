@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeseVsHawks", "GeeseVsHawk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeseVsHawks.Test", "GeeseVsHawks.Test\GeeseVsHawks.Test.csproj", "{29CAEA27-8035-4371-89C1-775A30AB1AF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightlyPursuit", "KnightlyPursuit\KnightlyPursuit.csproj", "{A8886719-1E9F-4961-B990-9612D7EA33D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightlyPursuit.Tests", "KnightlyPursuit.Tests\KnightlyPursuit.Tests.csproj", "{07BA8440-71A9-446D-A747-29CA3ABCDFB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +109,14 @@ Global
 		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CAEA27-8035-4371-89C1-775A30AB1AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8886719-1E9F-4961-B990-9612D7EA33D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8886719-1E9F-4961-B990-9612D7EA33D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8886719-1E9F-4961-B990-9612D7EA33D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8886719-1E9F-4961-B990-9612D7EA33D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
