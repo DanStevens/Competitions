@@ -47,13 +47,9 @@ namespace KnightlyPursuit
 
         private void ResetMinMoves()
         {
-            for (int i = 0; i < _numRows; i++)
-            for (int j = 0; j < _numColumns; j++)
-            {
+            for (int i = 0; i <= _numRows; i++)
+            for (int j = 0; j <= _numColumns; j++)
                 _minMoves[i, j] = -1;
-                _currentPositions[i * j] = default(Position);
-                _newPositions[i * j] = default(Position);
-            }
         }
 
         public Result Solve(Position pawnStart, Position knightStart)
@@ -66,7 +62,7 @@ namespace KnightlyPursuit
             {
                 int numMovesKnight = FindDistance(knightStart, pawnCurrent);
 
-                if (numMovesKnight == numMovesPawn)
+                if (CompareMoves(numMovesKnight, numMovesPawn))
                     return new Result { Outcome = GameOutcome.Win, NumMoves = numMovesPawn };
 
                 pawnCurrent = pawnCurrent.Offset(1, 0);
@@ -81,7 +77,7 @@ namespace KnightlyPursuit
             {
                 var numMovesKnight = FindDistance(knightStart, pawnCurrent.Offset(1, 0));
 
-                if (numMovesKnight == numMovesPawn)
+                if (CompareMoves(numMovesKnight, numMovesPawn))
                     return new Result { Outcome = GameOutcome.Stalemate, NumMoves = numMovesPawn };
 
                 pawnCurrent = pawnCurrent.Offset(1, 0);
@@ -89,6 +85,12 @@ namespace KnightlyPursuit
             }
 
             return new Result { Outcome = GameOutcome.Loss, NumMoves = _numRows - pawnStart.Row - 1 };
+        }
+
+        private static bool CompareMoves(int numMovesKnight, int numMovesPawn)
+        {
+            return numMovesKnight >= 0 && numMovesPawn >= numMovesKnight &&
+                   (numMovesPawn - numMovesKnight) % 2 == 0;
         }
 
         private int FindDistance(Position knightPos, Position to)

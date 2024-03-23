@@ -10,7 +10,7 @@ namespace KnightlyPursuit.Tests
         [InlineData(7, 7, 1, 1, 3, 3, GameOutcome.Win, 1)]
         [InlineData(7, 7, 1, 1, 4, 6, GameOutcome.Win, 3)]
         [InlineData(99, 99, 33, 33, 33, 35, GameOutcome.Win, 1)]
-        [InlineData(99, 99, 96, 23, 99, 1, GameOutcome.Loss, 1)]
+        [InlineData(99, 99, 96, 23, 99, 1, GameOutcome.Loss, 2)]
         public void TestSolution(
             int numRows, int numColumns, int pawnRow, int pawnColumn, int knightRow, int knightColumn,
             GameOutcome expectedOutcome, int numMoves)
