@@ -28,39 +28,26 @@ namespace KnightlyPursuit
 
     public class KnightlyPursuitSolver
     {
-        private readonly int _numRows;
-        private readonly int _numColumns;
-        private readonly int[,] _minMoves;
-        private readonly Position[] _currentPositions;
-        private readonly Position[] _newPositions;
-        private int _numCurrentPositions;
-        private int _numNewPositions;
+        private readonly KnightMovesFinder _knightMovesFinder;
 
-        public KnightlyPursuitSolver(int numRows, int numColumns)
+        public KnightlyPursuitSolver(int boardRows, int boardColumns)
         {
-            _numColumns = numColumns;
-            _numRows = numRows;
-            _minMoves = new int[_numRows + 1, _numColumns + 1];
-            _currentPositions = new Position[_numRows * _numColumns];
-            _newPositions = new Position[_numRows * _numColumns];
-        }
-
-        private void ResetMinMoves()
-        {
-            for (int i = 0; i <= _numRows; i++)
-            for (int j = 0; j <= _numColumns; j++)
-                _minMoves[i, j] = -1;
+            _knightMovesFinder =
+                new KnightMovesFinder(boardRows, boardColumns);
         }
 
         public Result Solve(Position pawnStart, Position knightStart)
         {
+            var boardRows = _knightMovesFinder.BoardRows;
             int numMovesPawn = 0;
             var pawnCurrent = pawnStart;
 
+            var minMovesForKnight = _knightMovesFinder.Search(knightStart);
+
             // Determine if knight can win
-            while (pawnCurrent.Row < _numRows)
+            while (pawnCurrent.Row < boardRows)
             {
-                int numMovesKnight = FindDistance(knightStart, pawnCurrent);
+                int numMovesKnight = minMovesForKnight[pawnCurrent.Row, pawnCurrent.Column];
 
                 if (CompareMoves(numMovesKnight, numMovesPawn))
                     return new Result { Outcome = GameOutcome.Win, NumMoves = numMovesPawn };
@@ -73,9 +60,9 @@ namespace KnightlyPursuit
             numMovesPawn = 0;
 
             // Determine if Knight can stalemate
-            while (pawnCurrent.Row < _numRows)
+            while (pawnCurrent.Row < boardRows)
             {
-                var numMovesKnight = FindDistance(knightStart, pawnCurrent.Offset(1, 0));
+                int numMovesKnight = minMovesForKnight[pawnCurrent.Row + 1, pawnCurrent.Column];
 
                 if (CompareMoves(numMovesKnight, numMovesPawn))
                     return new Result { Outcome = GameOutcome.Stalemate, NumMoves = numMovesPawn };
@@ -84,7 +71,7 @@ namespace KnightlyPursuit
                 numMovesPawn += 1;
             }
 
-            return new Result { Outcome = GameOutcome.Loss, NumMoves = _numRows - pawnStart.Row - 1 };
+            return new Result { Outcome = GameOutcome.Loss, NumMoves = boardRows - pawnStart.Row - 1 };
         }
 
         private static bool CompareMoves(int numMovesKnight, int numMovesPawn)
@@ -92,13 +79,44 @@ namespace KnightlyPursuit
             return numMovesKnight >= 0 && numMovesPawn >= numMovesKnight &&
                    (numMovesPawn - numMovesKnight) % 2 == 0;
         }
+    }
 
-        private int FindDistance(Position knightPos, Position to)
+    public class KnightMovesFinder
+    {
+
+        private int[,] _minMoves;
+        private Position[] _currentPositions;
+        private Position[] _newPositions;
+        private int _numCurrentPositions;
+        private int _numNewPositions;
+
+        public KnightMovesFinder(int boardRows, int boardColumns)
         {
-            ResetMinMoves();
+            BoardRows = boardRows;
+            BoardColumns = boardColumns;
+        }
+
+        public int BoardRows { get; }
+        public int BoardColumns { get; }
+
+        private void Initialize()
+        {
+            _minMoves = new int[BoardRows + 1, BoardColumns + 1];
+            _currentPositions = new Position[BoardRows * BoardColumns];
+            _newPositions = new Position[BoardRows * BoardColumns];
+            _numCurrentPositions = 0;
+            _numNewPositions = 0;
+
+            for (int i = 0; i <= BoardRows; i++)
+            for (int j = 0; j <= BoardColumns; j++)
+                _minMoves[i, j] = -1;
+        }
+
+        public int[,] Search(Position knightPos)
+        {
+            Initialize();
 
             _minMoves[knightPos.Row, knightPos.Column] = 0;
-
             _currentPositions[0] = knightPos;
             _numCurrentPositions = 1;
 
@@ -110,9 +128,6 @@ namespace KnightlyPursuit
                 {
                     var position = _currentPositions[i];
                     
-                    if (position == to)
-                        return _minMoves[to.Row, to.Column];
-
                     AddPosition(position, position.Offset(1, 2));
                     AddPosition(position, position.Offset(1, -2));
                     AddPosition(position, position.Offset(-1, 2));
@@ -127,13 +142,13 @@ namespace KnightlyPursuit
                 Array.Copy(_newPositions, _currentPositions, _numCurrentPositions);
             }
 
-            return -1;
+            return _minMoves;
         }
 
         private void AddPosition(Position from, Position to)
         {
             var condition = to.Row >= 1 && to.Column >= 1 &&
-                            to.Row <= _numRows && to.Column <= _numColumns &&
+                            to.Row <= BoardRows && to.Column <= BoardColumns &&
                             _minMoves[to.Row, to.Column] == -1;
             if (condition)
             {
