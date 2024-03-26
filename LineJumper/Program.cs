@@ -1,11 +1,28 @@
 ﻿using System;
+using System.Linq;
 
 namespace LineJumper
 {
+    using System.Collections.Generic;
+
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            var args = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            var exclusionZonesReader = ExclusionZonesReader(args[2]);
+            var solver = new LineJumpSolver(args[0], args[1], exclusionZonesReader);
+            var result = solver.Solve();
+            Console.WriteLine(result);
+        }
+
+        private static IEnumerable<Range> ExclusionZonesReader(int numToRead)
+        {
+            for (int i = 0; i < numToRead; i++)
+            {
+                var exclusionZoneMinMax = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                yield return new Range(exclusionZoneMinMax[0], exclusionZoneMinMax[1]);
+            }
         }
     }
 
@@ -13,34 +30,34 @@ namespace LineJumper
     {
         private readonly int _minDistance;
         private readonly int _jumpDistance;
-        private int[] _minMoves;
+        private int[] _movementGraph;
         private int[] _currentPositions;
         private int[] _newPositions;
         private int _numCurrentPositions;
         private int _numNewPositions;
-        private readonly bool[] _excludedSegments;
+        public bool[] ExcludedSegments { get; }
 
-        public LineJumpSolver(int minDistance, int jumpDistance, Range[] exclusionZones)
+        public LineJumpSolver(int minDistance, int jumpDistance, IEnumerable<Range> exclusionZones)
         {
-            _minDistance = minDistance;
+            _minDistance = minDistance; 
             _jumpDistance = jumpDistance;
-            _excludedSegments = new bool[_minDistance * 2];
+            ExcludedSegments = new bool[_minDistance * 2];
 
             foreach (var exclusionZone in exclusionZones)
-                for (int i = exclusionZone.Min; i < exclusionZone.Max; i++)
-                    _excludedSegments[i] = true;
+                for (int i = exclusionZone.Min; i <= exclusionZone.Max; i++)
+                    ExcludedSegments[i] = true;
         }
 
         public int Solve()
         {
-            if (_minMoves == null)
-                Search(_minDistance);
+            if (_movementGraph == null)
+                BuildMovementGraph(_minDistance);
 
             int bestResult = -1;
 
             for (int i = _minDistance; i < _minDistance * 2; i++)
-                if (_minMoves[i] != -1 && (bestResult == 01 || _minMoves[i] < bestResult))
-                    bestResult = _minMoves[i];
+                if (_movementGraph[i] != -1 && (bestResult == -1 || _movementGraph[i] < bestResult))
+                    bestResult = _movementGraph[i];
 
             return bestResult;
         }
@@ -49,19 +66,19 @@ namespace LineJumper
         {
             _numCurrentPositions = 0;
             _numNewPositions = 0;
-            _minMoves = new int[_minDistance * 2];
+            _movementGraph = new int[_minDistance * 2];
             _currentPositions = new int[_minDistance * 2];
             _newPositions = new int[_minDistance * 2];
 
-            for (int i = 0; i < _minMoves.Length; i++)
-                _minMoves[i] = -1;
+            for (int i = 0; i < _movementGraph.Length; i++)
+                _movementGraph[i] = -1;
         }
 
-        private void Search(int minDistance)
+        private void BuildMovementGraph(int targetDistance)
         {
             Initialize();
 
-            _minMoves[0] = 0;
+            _movementGraph[0] = 0;
             _currentPositions[0] = 0;
             _numCurrentPositions = 1;
 
@@ -73,10 +90,10 @@ namespace LineJumper
                 {
                     var fromDistance = _currentPositions[i];
 
-                    AddPosition(fromDistance, fromDistance + _jumpDistance, minDistance * 2 - 1);
+                    AddPosition(fromDistance, fromDistance + _jumpDistance, targetDistance * 2 - 1);
 
                     for (int j = 0; j < fromDistance; j++)
-                        AddPosition(fromDistance, j, minDistance * 2 - 1);
+                        AddPosition(fromDistance, j, targetDistance * 2 - 1);
                 }
 
                 _numCurrentPositions = _numNewPositions;
@@ -87,11 +104,11 @@ namespace LineJumper
         private void AddPosition(int fromDistance, int toDistance, int maxHeight)
         {
             bool condition = toDistance <= maxHeight &&
-                             !_excludedSegments[toDistance] &&
-                             _minMoves[toDistance] == -1;
+                             !ExcludedSegments[toDistance] &&
+                             _movementGraph[toDistance] == -1;
             if (condition)
             {
-                _minMoves[toDistance] = 1 + _minMoves[fromDistance];
+                _movementGraph[toDistance] = 1 + _movementGraph[fromDistance];
                 _newPositions[_numNewPositions] = toDistance;
                 _numNewPositions += 1;
             }
@@ -110,5 +127,4 @@ namespace LineJumper
 
         public override string ToString() => $"{Min}..{Max}";
     }
-
 }
