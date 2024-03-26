@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using RopeClimb;
+using LineJumper;
 using Xunit;
 
-namespace RopeClimbTests
+namespace LineJumperTests
 {
     public class LineJumpSolverTests
     {

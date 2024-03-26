@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RopeClimb")]
+[assembly: AssemblyTitle("LineJumper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RopeClimb")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCompany("Oxford Instruments")]
+[assembly: AssemblyProduct("LineJumper")]
+[assembly: AssemblyCopyright("Copyright © Oxford Instruments 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f43cdbd4-094a-4923-846a-b896e4f9ed31")]
+[assembly: Guid("abb4c16f-ee25-46fe-a008-15f5e5318857")]
 
 // Version information for an assembly consists of the following four values:
 //

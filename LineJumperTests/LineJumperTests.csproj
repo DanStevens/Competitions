@@ -86,9 +86,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RopeClimb\RopeClimb.csproj">
-      <Project>{f43cdbd4-094a-4923-846a-b896e4f9ed31}</Project>
-      <Name>RopeClimb</Name>
+    <ProjectReference Include="..\LineJumper\LineJumper.csproj">
+      <Project>{abb4c16f-ee25-46fe-a008-15f5e5318857}</Project>
+      <Name>LineJumper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

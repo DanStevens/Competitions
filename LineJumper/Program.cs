@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RopeClimb
+namespace LineJumper
 {
     internal class Program
     {
@@ -8,7 +8,6 @@ namespace RopeClimb
         {
         }
     }
-
 
     public class LineJumpSolver
     {
@@ -111,4 +110,5 @@ namespace RopeClimb
 
         public override string ToString() => $"{Min}..{Max}";
     }
+
 }

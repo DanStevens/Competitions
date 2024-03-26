@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F43CDBD4-094A-4923-846A-B896E4F9ED31}</ProjectGuid>
+    <ProjectGuid>{ABB4C16F-EE25-46FE-A008-15F5E5318857}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RopeClimb</RootNamespace>
-    <AssemblyName>RopeClimb</AssemblyName>
+    <RootNamespace>LineJumper</RootNamespace>
+    <AssemblyName>LineJumper</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
