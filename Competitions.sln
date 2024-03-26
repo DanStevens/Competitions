@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightlyPursuit", "Knightly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightlyPursuit.Tests", "KnightlyPursuit.Tests\KnightlyPursuit.Tests.csproj", "{07BA8440-71A9-446D-A747-29CA3ABCDFB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RopeClimb", "RopeClimb\RopeClimb.csproj", "{F43CDBD4-094A-4923-846A-B896E4F9ED31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RopeClimbTests", "RopeClimbTests\RopeClimbTests.csproj", "{D1196073-E61F-48E7-BD3F-252576D19849}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +121,14 @@ Global
 		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07BA8440-71A9-446D-A747-29CA3ABCDFB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43CDBD4-094A-4923-846A-B896E4F9ED31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43CDBD4-094A-4923-846A-B896E4F9ED31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43CDBD4-094A-4923-846A-B896E4F9ED31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43CDBD4-094A-4923-846A-B896E4F9ED31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1196073-E61F-48E7-BD3F-252576D19849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1196073-E61F-48E7-BD3F-252576D19849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1196073-E61F-48E7-BD3F-252576D19849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1196073-E61F-48E7-BD3F-252576D19849}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
